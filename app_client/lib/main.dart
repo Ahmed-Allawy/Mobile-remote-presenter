@@ -40,16 +40,16 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> sendCommand(String command) async {
     if (serverIp.isEmpty) {
-      print("Enter an IP address first!");
+     
       return;
     }
 
     final String url = "http://$serverIp:$serverPort";
     try {
-      Response response = await dio.post(url, data: command);
-      print("Response: ${response.data}");
+       await dio.post(url, data: command);
+      
     } catch (e) {
-      print("Error: $e");
+      return ;
     }
   }
 
@@ -90,27 +90,41 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Expanded(
+                flex: 1,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: TextButton.icon(
+                        onPressed: () => sendCommand("UP"),
+                        icon: Icon(Icons.arrow_upward),
+                        label: Text('UP       '), // Full Screen Button
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: TextButton.icon(
+                        onPressed: () => sendCommand("DOWN"),
+                        icon: Icon(Icons.arrow_downward_sharp),
+                        label: Text('DOWN'), // Full Screen Button
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
                 flex: 2,
                 child: TextButton.icon(
                   onPressed: () => sendCommand("F5"),
                   icon: Icon(Icons.fullscreen_sharp),
                   label: Text('full screen'), // Full Screen Button
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: TextButton.icon(
-                  onPressed: () => sendCommand("UP"),
-                  icon: Icon(Icons.arrow_upward),
-                  label: Text('UP       '), // Full Screen Button
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: TextButton.icon(
-                  onPressed: () => sendCommand("DOWN"),
-                  icon: Icon(Icons.arrow_downward_sharp),
-                  label: Text('DOWN'), // Full Screen Button
                 ),
               ),
             ],
